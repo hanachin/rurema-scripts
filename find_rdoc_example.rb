@@ -61,12 +61,13 @@ built_in_klasses = [
 
 built_in_klasses.each do |klass|
   klass.instance_methods(false).each do |method|
+    $stderr.puts klass
     m = klass.instance_method(method)
     o, s = Open3.capture2('ri', '--no-pager', '--no-site', '--no-gems', '--no-home', "#{m.owner}##{method}")
     rdoc =  s.success? && o&.match(/^ +..*$/)
 
     o, s = Open3.capture2('refe', "#{m.owner}##{method}")
-    rurema =  s.success? && o&.match(/^ +..*$/)
+    rurema =  s.success? && o&.split(/^-+$/)&.last&.match(/^ +..*$/)
 
     if rdoc && !rurema
       puts "#{m.owner}##{method}"
