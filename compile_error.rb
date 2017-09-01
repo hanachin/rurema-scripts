@@ -16,9 +16,9 @@ Dir[rd_pattern].each do |rd|
   begin
     error_codes = linter.lint(rd) do |s|
       begin
-        RubyVM::InstructionSequence.compile(s)
+        !RubyVM::InstructionSequence.compile(s)
       rescue SyntaxError
-        false
+        true
       end && !s.include?('$ ruby')
     end
 
