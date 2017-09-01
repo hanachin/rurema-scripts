@@ -19,7 +19,7 @@ Dir[rd_pattern].each do |rd|
         !RubyVM::InstructionSequence.compile(s)
       rescue SyntaxError
         true
-      end && !s.include?('$ ruby')
+      end && !s.match(/^$? *ruby /)
     end
 
     next if error_codes.empty?

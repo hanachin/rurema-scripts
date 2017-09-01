@@ -15,7 +15,7 @@ Dir[rd_pattern].each do |rd|
   next if File.directory?(rd)
   begin
     error_codes = linter.lint(rd) do |s|
-      !s.include?('require')
+      !s.include?('require') && !s.match(/^$? *ruby /)
     end
 
     next if error_codes.empty?
