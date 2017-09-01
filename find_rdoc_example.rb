@@ -60,8 +60,8 @@ built_in_klasses = [
 ]
 
 built_in_klasses.each do |klass|
+  $stderr.puts klass
   klass.instance_methods(false).each do |method|
-    $stderr.puts klass
     m = klass.instance_method(method)
     o, s = Open3.capture2('ri', '--no-pager', '--no-site', '--no-gems', '--no-home', "#{m.owner}##{method}")
     rdoc =  s.success? && o&.match(/^ +..*$/)
