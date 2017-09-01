@@ -6,8 +6,9 @@ linter = RuremaSourceCodeLinter.new
 
 error_rds = []
 rurema_path = File.expand_path("~/.bitclust/rubydoc/")
-rd_pattern = File.join(rurema_path, "refm/**/*")
+rd_pattern = "refm/**/*"
 
+Dir.chdir(rurema_path)
 Dir[rd_pattern].each do |rd|
   next if rd.include?('/capi/')
   next if rd.include?('/_builtin/')
