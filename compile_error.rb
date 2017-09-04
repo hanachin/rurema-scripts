@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require_relative './rurema_source_code_linter'
 require 'fileutils'
 require 'yaml'

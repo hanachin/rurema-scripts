@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require 'open3'
 
 built_in_klasses = [
