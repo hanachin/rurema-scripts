@@ -23,7 +23,7 @@ def add_example_for(sig)
   end
 
   unless method_index
-    puts "Entry not found: " + sig
+    puts "[SKIP] Entry not found: " + sig
     return
   end
 
@@ -31,6 +31,12 @@ def add_example_for(sig)
 
   o, _s = Open3.capture2('ri', '--no-pager', '--no-site', '--no-gems', '--no-home', sig)
   desc = o.split(/^-+\n/).last
+
+  if lines[method_index..method_index+n_line].join.include?('@see')
+    puts "[SKIP] See also found:" + sig
+    return
+  end
+
   examples = desc.each_line.chunk { |l| l.start_with?(' ') }.map {|(k, v)| "例:\n" + v.join if k }.compact
   lines[method_index + n_line, 0] = examples.join
   File.write(path, lines.join)
