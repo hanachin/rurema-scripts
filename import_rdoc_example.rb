@@ -37,7 +37,7 @@ def add_example_for(sig)
     return
   end
 
-  examples = desc.each_line.chunk { |l| l.start_with?(' ') }.map {|(k, v)| "例:\n" + v.join if k }.compact
+  examples = desc.each_line.chunk { |l| l.start_with?(' ') }.map {|(k, v)| "\n例:\n" + v.join if k }.compact
   lines[method_index + n_line, 0] = examples.join
   File.write(path, lines.join)
 end
